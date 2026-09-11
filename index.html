@@ -530,7 +530,7 @@
 </form>
 
 <script>
-  // Listas de ítems de inspección técnica, tomadas del documento Toyota
+  // Listas de ítems de inspección técnica
   const items = {
     "tabla-interior": [
       "Reloj y pantalla multifunción",
@@ -602,7 +602,7 @@
     });
   });
 
-  // --- Conexión con el backend (Flask + SQLite) ---
+  // --- Conexión con el backend en Render ---
   document.getElementById("ordenServicio").addEventListener("submit", async function(e){
     e.preventDefault();
     const form = e.target;
@@ -620,7 +620,7 @@
     submitBtn.textContent = "Guardando...";
 
     try {
-      const res = await fetch('http://localhost:5000/api/ordenes', {
+      const res = await fetch('https://sistema-orden-servicio.onrender.com/api/ordenes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -635,7 +635,7 @@
         alert('Error al guardar: ' + (error.error || 'Error desconocido'));
       }
     } catch (err) {
-      alert('No se pudo conectar con el servidor. ¿Está corriendo python app_sqlite.py? (' + err.message + ')');
+      alert('No se pudo conectar con el servidor en Render (' + err.message + ')');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "Guardar Orden de Servicio";

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ordenes_servicio (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    num_or TEXT,
+    fecha TEXT,
+    hora TEXT,
+    km TEXT,
+    cliente TEXT,
+    placa TEXT,
+    bateria TEXT,
+    inventario_recepcion TEXT,
+    inventario_entrega TEXT,
+    condicion_limpieza TEXT,
+    sujecion_recepcion TEXT,
+    sujecion_entrega TEXT,
+    pintura TEXT,
+    rines TEXT,
+    tapiceria TEXT,
+    obs_insp_visual TEXT,
+    nivel_gasolina TEXT,
+    observaciones_generales TEXT,
+    detalles_json TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

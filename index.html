@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orden de Servicio - Toyota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --line:#2a2a2a;
+    --panel:#f7f7f5;
+    --accent:#c00;
+    --border:#bbb;
+    --font-heading:"Space Grotesk", "Inter", system-ui, sans-serif;
+    --font-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:#e9e9e6;
+    margin:0;
+    padding:24px 12px;
+  }
+  form{
+    max-width:900px;
+    margin:0 auto;
+    background:#fff;
+    border:2px solid var(--line);
+    padding:20px 24px 32px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:3px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:14px;
+  }
+  .brand h1{
+    font-family:var(--font-heading);
+    font-weight:700;
+    font-size:1.6rem;
+    margin:0;
+    letter-spacing:.2px;
+  }
+  .brand .logo{
+    font-family:var(--font-heading);
+    font-weight:700;
+    font-size:1.1rem;
+    color:var(--accent);
+    border:2px solid var(--accent);
+    padding:4px 10px;
+    border-radius:4px;
+  }
+  h2.section-title{
+    font-family:var(--font-heading);
+    font-weight:500;
+    font-size:.9rem;
+    text-transform:uppercase;
+    background:var(--line);
+    color:#fff;
+    padding:6px 10px;
+    margin:22px 0 10px;
+    letter-spacing:.6px;
+    border-radius:3px;
+  }
+  .row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    flex:1 1 200px;
+  }
+  .field.small{flex:0 1 140px;}
+  .field label{
+    font-size:.8rem;
+    margin-bottom:3px;
+  }
+  .field input[type=text],
+  .field input[type=date],
+  .field input[type=time],
+  .field input[type=number],
+  .field textarea{
+    font-family:var(--font-body);
+    font-size:.95rem;
+    padding:7px 9px;
+    border:1px solid var(--border);
+    border-radius:5px;
+  }
+  fieldset{
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:10px 14px 12px;
+    margin-bottom:14px;
+  }
+  legend{
+    font-family:var(--font-heading);
+    font-size:.82rem;
+    font-weight:700;
+    padding:0 6px;
+  }
+  .check-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    align-items:center;
+    font-size:.9rem;
+  }
+  .check-group label{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
+  }
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:640px){
+    .two-col{grid-template-columns:1fr;}
+  }
+
+  .visual-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    align-items:start;
+  }
+  .car-diagram{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:var(--panel);
+    border:1px dashed var(--border);
+    border-radius:6px;
+    padding:10px;
+  }
+  .car-diagram svg{width:180px;height:auto;}
+
+  table.tire-table, table.check-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.82rem;
+  }
+  table.tire-table th, table.tire-table td,
+  table.check-table th, table.check-table td{
+    border:1px solid var(--border);
+    padding:4px 6px;
+    text-align:center;
+  }
+  table.tire-table th, table.check-table th{
+    background:var(--panel);
+  }
+  table.tire-table td:first-child,
+  table.check-table td.item-name{
+    text-align:left;
+  }
+  table.check-table td.item-name{width:55%;}
+
+  .observ textarea{
+    width:100%;
+    min-height:70px;
+    font-family:inherit;
+    padding:8px;
+    border:1px solid var(--border);
+    border-radius:2px;
+    resize:vertical;
+  }
+
+  .signature-line{
+    margin-top:26px;
+    display:flex;
+    justify-content:flex-end;
+    gap:40px;
+    align-items:flex-end;
+  }
+  .signature-box{
+    text-align:center;
+    font-size:.8rem;
+  }
+  .signature-box .line{
+    width:220px;
+    border-top:1px solid var(--ink);
+    margin-bottom:4px;
+  }
+
+  .submit-row{
+    margin-top:26px;
+    display:flex;
+    justify-content:center;
+  }
+  button{
+    background:var(--line);
+    color:#fff;
+    border:none;
+    padding:12px 32px;
+    font-size:1rem;
+    font-family:inherit;
+    border-radius:4px;
+    cursor:pointer;
+  }
+  button:hover{background:#000;}
+  button:disabled{background:#888; cursor:not-allowed;}
+
+  .subsection{
+    font-size:.85rem;
+    font-weight:bold;
+    margin:10px 0 6px;
+    color:var(--line);
+  }
+
+  .badge{
+    display:inline-block;
+    font-size:.75rem;
+    border:1px solid var(--ink);
+    padding:2px 8px;
+    border-radius:10px;
+    margin-left:8px;
+  }
+</style>
+</head>
+<body>
+
+<form id="ordenServicio">
+
+  <div class="brand">
+    <h1>Orden de Servicio</h1>
+    <div class="logo">TOYOTA</div>
+  </div>
+
+  <div class="row">
+    <div class="field small">
+      <label for="numOR">N° OR</label>
+      <input type="text" id="numOR" name="numOR" placeholder="N° de orden">
+    </div>
+    <div class="field small">
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" name="fecha">
+    </div>
+    <div class="field small">
+      <label for="hora">Hora</label>
+      <input type="time" id="hora" name="hora">
+    </div>
+    <div class="field small">
+      <label for="km">Km</label>
+      <input type="number" id="km" name="km" placeholder="Kilometraje">
+    </div>
+  </div>
+
+  <h2 class="section-title">OK / Reemplazo</h2>
+
+  <div class="row">
+    <div class="field">
+      <label for="cliente">Cliente</label>
+      <input type="text" id="cliente" name="cliente" placeholder="Nombre del cliente">
+    </div>
+    <div class="field small">
+      <label for="placa">Placa</label>
+      <input type="text" id="placa" name="placa" placeholder="N° de placa">
+    </div>
+    <div class="field">
+      <label for="bateria">Marca y modelo de Batería</label>
+      <input type="text" id="bateria" name="bateria" placeholder="Ej: Marca / Modelo">
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>¿Cliente participa en el inventario?</legend>
+    <div class="two-col">
+      <div>
+        <div class="subsection">Recepción</div>
+        <div class="check-group">
+          <label><input type="radio" name="inventarioRecepcion" value="OK"> OK</label>
+          <label><input type="radio" name="inventarioRecepcion" value="NO"> NO</label>
+        </div>
+      </div>
+      <div>
+        <div class="subsection">Entrega</div>
+        <div class="check-group">
+          <label><input type="radio" name="inventarioEntrega" value="OK"> OK</label>
+          <label><input type="radio" name="inventarioEntrega" value="NO"> NO</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Condición de limpieza</legend>
+    <div class="check-group">
+      <label><input type="radio" name="condicionLimpieza" value="Buena"> Buena</label>
+      <label><input type="radio" name="condicionLimpieza" value="Mala"> Mala</label>
+      <label><input type="radio" name="condicionLimpieza" value="Regular"> Regular</label>
+    </div>
+  </fieldset>
+
+  <h2 class="section-title">Método de Sujeción de Alfombras</h2>
+
+  <div class="two-col">
+    <fieldset>
+      <legend>Sujeción</legend>
+      <div class="two-col">
+        <div>
+          <div class="subsection">Recepción</div>
+          <div class="check-group">
+            <label><input type="radio" name="sujecionRecepcion" value="OK"> OK</label>
+            <label><input type="radio" name="sujecionRecepcion" value="NO"> NO</label>
+          </div>
+        </div>
+        <div>
+          <div class="subsection">Entrega</div>
+          <div class="check-group">
+            <label><input type="radio" name="sujecionEntrega" value="OK"> OK</label>
+            <label><input type="radio" name="sujecionEntrega" value="NO"> NO</label>
+          </div>
+        </div>
+      </div>
+      <div class="subsection">Alfombras originales</div>
+      <div class="check-group">
+        <label><input type="checkbox" name="alfombraForro"> Forro</label>
+        <label><input type="checkbox" name="alfombraPedales"> Sobre los pedales</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Condición solo para instalación incorrecta</legend>
+      <div class="check-group">
+        <label><input type="checkbox" name="instalDosOMas"> Dos o más</label>
+        <label><input type="checkbox" name="instalOtros"> Otros</label>
+      </div>
+      <div class="subsection">Recomendación para el correcto uso de las alfombras</div>
+      <ul style="font-size:.78rem; margin:4px 0 0 18px; padding:0;">
+        <li>Instalar solamente alfombras diseñadas para el modelo.</li>
+        <li>Asegurar firmemente con los retenedores.</li>
+        <li>Nunca usar más de una alfombra.</li>
+        <li>Instale siempre en la posición correcta. NO usar alfombras.</li>
+      </ul>
+    </fieldset>
+  </div>
+
+  <h2 class="section-title">Inspección Visual</h2>
+
+  <div class="visual-grid">
+    <div>
+      <div class="row">
+        <div class="field">
+          <label for="pintura">Pintura/Carrocería</label>
+          <input type="text" id="pintura" name="pintura">
+        </div>
+        <div class="field">
+          <label for="rines">Rines</label>
+          <input type="text" id="rines" name="rines">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="tapiceria">Tapicería</label>
+          <input type="text" id="tapiceria" name="tapiceria">
+        </div>
+      </div>
+      <div class="field">
+        <label for="obsInspVisual">Observaciones</label>
+        <textarea id="obsInspVisual" name="obsInspVisual" rows="2"></textarea>
+      </div>
+      <p style="font-size:.75rem; margin-top:8px;">
+        <strong>A</strong>=Arañado &nbsp; <strong>V</strong>=Dañado &nbsp; <strong>O</strong>=Abollado &nbsp; <strong>F</strong>=Faltante
+      </p>
+    </div>
+
+    <div class="car-diagram">
+      <svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="20" width="120" height="280" rx="30" fill="none" stroke="#333" stroke-width="2"/>
+        <rect x="55" y="55" width="90" height="60" rx="8" fill="none" stroke="#333" stroke-width="1.5"/>
+        <rect x="55" y="205" width="90" height="60" rx="8" fill="none" stroke="#333" stroke-width="1.5"/>
+        <circle cx="45" cy="70" r="10" fill="none" stroke="#333" stroke-width="1.5"/>
+        <circle cx="155" cy="70" r="10" fill="none" stroke="#333" stroke-width="1.5"/>
+        <circle cx="45" cy="250" r="10" fill="none" stroke="#333" stroke-width="1.5"/>
+        <circle cx="155" cy="250" r="10" fill="none" stroke="#333" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:14px;">
+    <table class="tire-table">
+      <caption style="text-align:left; font-size:.85rem; font-weight:bold; margin-bottom:4px;">Neumático</caption>
+      <thead>
+        <tr><th></th><th>Marca</th><th>Medición</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="item-name">Del. Izquierdo</td><td><input type="text" name="neu_marca_di"></td><td><input type="text" name="neu_med_di"></td></tr>
+        <tr><td class="item-name">Del. Derecho</td><td><input type="text" name="neu_marca_dd"></td><td><input type="text" name="neu_med_dd"></td></tr>
+        <tr><td class="item-name">Tras. Derecho</td><td><input type="text" name="neu_marca_td"></td><td><input type="text" name="neu_med_td"></td></tr>
+        <tr><td class="item-name">Tras. Izquierdo</td><td><input type="text" name="neu_marca_ti"></td><td><input type="text" name="neu_med_ti"></td></tr>
+      </tbody>
+    </table>
+
+    <table class="check-table">
+      <caption style="text-align:left; font-size:.85rem; font-weight:bold; margin-bottom:4px;">Accesorios</caption>
+      <thead>
+        <tr><th class="item-name"></th><th>SI</th><th>NO</th><th>Aver.</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="item-name">Sistema de audio</td><td><input type="checkbox" name="acc_audio_si"></td><td><input type="checkbox" name="acc_audio_no"></td><td><input type="checkbox" name="acc_audio_av"></td></tr>
+        <tr><td class="item-name">Faros antiniebla</td><td><input type="checkbox" name="acc_faros_si"></td><td><input type="checkbox" name="acc_faros_no"></td><td><input type="checkbox" name="acc_faros_av"></td></tr>
+        <tr><td class="item-name">Cámara de estacionamiento</td><td><input type="checkbox" name="acc_camara_si"></td><td><input type="checkbox" name="acc_camara_no"></td><td><input type="checkbox" name="acc_camara_av"></td></tr>
+        <tr><td class="item-name">Sensor de retroceso</td><td><input type="checkbox" name="acc_sensor_si"></td><td><input type="checkbox" name="acc_sensor_no"></td><td><input type="checkbox" name="acc_sensor_av"></td></tr>
+        <tr><td class="item-name">Estribos</td><td><input type="checkbox" name="acc_estribos_si"></td><td><input type="checkbox" name="acc_estribos_no"></td><td><input type="checkbox" name="acc_estribos_av"></td></tr>
+        <tr><td class="item-name">Rines</td><td><input type="checkbox" name="acc_rines_si"></td><td><input type="checkbox" name="acc_rines_no"></td><td><input type="checkbox" name="acc_rines_av"></td></tr>
+        <tr><td class="item-name">Neumáticos</td><td><input type="checkbox" name="acc_neum_si"></td><td><input type="checkbox" name="acc_neum_no"></td><td><input type="checkbox" name="acc_neum_av"></td></tr>
+        <tr><td class="item-name">Cromados</td><td><input type="checkbox" name="acc_cromados_si"></td><td><input type="checkbox" name="acc_cromados_no"></td><td><input type="checkbox" name="acc_cromados_av"></td></tr>
+        <tr><td class="item-name">Otros (indique)</td><td><input type="checkbox" name="acc_otros_si"></td><td><input type="checkbox" name="acc_otros_no"></td><td><input type="checkbox" name="acc_otros_av"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <fieldset style="margin-top:14px;">
+    <legend>Nivel de gasolina</legend>
+    <div class="check-group">
+      <label><input type="radio" name="nivelGasolina" value="E"> E</label>
+      <label><input type="radio" name="nivelGasolina" value="1/4"> ¼</label>
+      <label><input type="radio" name="nivelGasolina" value="1/2"> ½</label>
+      <label><input type="radio" name="nivelGasolina" value="3/4"> ¾</label>
+      <label><input type="radio" name="nivelGasolina" value="F"> F</label>
+    </div>
+  </fieldset>
+
+  <h2 class="section-title">Inspección Técnica <span class="badge">Mantenimiento</span></h2>
+
+  <div class="two-col">
+    <fieldset>
+      <legend>A. Interior del vehículo</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Reparado</th></tr></thead>
+        <tbody id="tabla-interior"></tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>B. Exterior del vehículo</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Reparado</th></tr></thead>
+        <tbody id="tabla-exterior"></tbody>
+      </table>
+    </fieldset>
+  </div>
+
+  <div class="two-col">
+    <fieldset>
+      <legend>C. Compartimiento del motor</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Reparado</th></tr></thead>
+        <tbody id="tabla-motor"></tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>D. Fluidos</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Reparado</th></tr></thead>
+        <tbody id="tabla-fluidos"></tbody>
+      </table>
+    </fieldset>
+  </div>
+
+  <fieldset>
+    <legend>E. Chasis y Suspensión</legend>
+    <table class="check-table">
+      <thead><tr><th class="item-name"></th><th>Reparado</th></tr></thead>
+      <tbody id="tabla-chasis"></tbody>
+    </table>
+  </fieldset>
+
+  <div class="two-col">
+    <fieldset>
+      <legend>F. Presión de neumáticos (INICIAL / FINAL)</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Inicial (psi)</th><th>Final (psi)</th></tr></thead>
+        <tbody>
+          <tr><td class="item-name">Delantero Izquierdo</td><td><input type="text" name="psi_di_ini"></td><td><input type="text" name="psi_di_fin"></td></tr>
+          <tr><td class="item-name">Delantero Derecho</td><td><input type="text" name="psi_dd_ini"></td><td><input type="text" name="psi_dd_fin"></td></tr>
+          <tr><td class="item-name">Posterior Izquierdo</td><td><input type="text" name="psi_pi_ini"></td><td><input type="text" name="psi_pi_fin"></td></tr>
+          <tr><td class="item-name">Posterior Derecho</td><td><input type="text" name="psi_pd_ini"></td><td><input type="text" name="psi_pd_fin"></td></tr>
+          <tr><td class="item-name">Repuesto</td><td><input type="text" name="psi_rep_ini"></td><td><input type="text" name="psi_rep_fin"></td></tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>G. Frenos</legend>
+      <table class="check-table">
+        <thead><tr><th class="item-name"></th><th>Del. Izq.</th><th>Del. Der.</th><th>Tras. Izq.</th><th>Tras. Der.</th></tr></thead>
+        <tbody>
+          <tr><td class="item-name">Pastillas</td><td><input type="text" name="pastillas_di"></td><td><input type="text" name="pastillas_dd"></td><td><input type="text" name="pastillas_ti"></td><td><input type="text" name="pastillas_td"></td></tr>
+          <tr><td class="item-name">Discos</td><td><input type="text" name="discos_di"></td><td><input type="text" name="discos_dd"></td><td><input type="text" name="discos_ti"></td><td><input type="text" name="discos_td"></td></tr>
+          <tr><td class="item-name">Bandas</td><td><input type="text" name="bandas_di"></td><td><input type="text" name="bandas_dd"></td><td><input type="text" name="bandas_ti"></td><td><input type="text" name="bandas_td"></td></tr>
+          <tr><td class="item-name">Tambores</td><td><input type="text" name="tambores_di"></td><td><input type="text" name="tambores_dd"></td><td><input type="text" name="tambores_ti"></td><td><input type="text" name="tambores_td"></td></tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+
+  <h2 class="section-title">Observaciones</h2>
+  <div class="observ">
+    <textarea name="observacionesGenerales" placeholder="Observaciones generales del servicio..."></textarea>
+  </div>
+
+  <div class="signature-line">
+    <div class="signature-box">
+      <div class="line"></div>
+      Firma del Asesor de Servicio
+    </div>
+    <div class="signature-box">
+      <div class="line"></div>
+      Firma del Cliente o Persona Autorizada
+    </div>
+  </div>
+
+  <div class="submit-row">
+    <button type="submit">Guardar Orden de Servicio</button>
+  </div>
+
+</form>
+
+<script>
+  // Listas de ítems de inspección técnica, tomadas del documento Toyota
+  const items = {
+    "tabla-interior": [
+      "Reloj y pantalla multifunción",
+      "Advertencias en Tablero y Luz de domo",
+      "Aspersores y cepillos limpiaparabrisas",
+      "Ventilador/Desempañador",
+      "Retrovisores y tapasol",
+      "Corneta",
+      "Volante y columna de dirección",
+      "A/C",
+      "Radio / Multimedia",
+      "Asientos y cinturones de seguridad",
+      "Ventanas y seguros",
+      "Freno de estacionamiento",
+      "Pedal de freno y embrague",
+      "Filtro de A/C"
+    ],
+    "tabla-exterior": [
+      "Faros/Direccionales delant. y tras.",
+      "Tapa del tanque de combustible",
+      "Limpiadora Trasera / Vidrio Trasero"
+    ],
+    "tabla-motor": [
+      "Fugas (aceite, refrigerante, combustible)",
+      "Correas transmisoras",
+      "Correa/Cadena de distribución",
+      "Bujías",
+      "Condición de la batería",
+      "Voltaje de la batería",
+      "Filtro de aire del motor",
+      "Filtro de combustible (int. tanque)",
+      "Filtro de combustible alta presión (Diesel)",
+      "Filtro de combustible (elemento)"
+    ],
+    "tabla-fluidos": [
+      "Aceite del motor",
+      "Líquido del limpiaparabrisas",
+      "Refrigerante del motor",
+      "Líquido de freno",
+      "Líquido de embrague (Trans. Manual)",
+      "Aceite de transmisión automática",
+      "Aceite de transmisión automática",
+      "Aceite de dirección hidráulica",
+      "Aceite de caja de transferencia",
+      "Aceite de diferencial delantero",
+      "Aceite de diferencial posterior"
+    ],
+    "tabla-chasis": [
+      "Cajetín de dirección",
+      "Terminal de dirección",
+      "Tubería del sistema de frenos",
+      "Tubo de escape",
+      "Guardapolvos de cajetín de la dirección",
+      "Suspensión delantera",
+      "Suspensión posterior",
+      "Lubricación del cardán",
+      "Muñón del brazo de control y guardapolvo",
+      "Pernos del cardán",
+      "Soporte del cardán"
+    ]
+  };
+
+  Object.entries(items).forEach(([tbodyId, list]) => {
+    const tbody = document.getElementById(tbodyId);
+    list.forEach((label, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td class="item-name">${label}</td><td><input type="checkbox" name="${tbodyId}_${i}"></td>`;
+      tbody.appendChild(tr);
+    });
+  });
+
+  // --- Conexión con el backend (Flask + SQLite) ---
+  document.getElementById("ordenServicio").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const form = e.target;
+
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => { data[key] = value; });
+
+    form.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      data[cb.name] = cb.checked;
+    });
+
+    const submitBtn = form.querySelector('button[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Guardando...";
+
+    try {
+      const res = await fetch('http://localhost:5000/api/ordenes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        alert('Orden guardada correctamente (ID: ' + result.id + ')');
+        form.reset();
+      } else {
+        const error = await res.json();
+        alert('Error al guardar: ' + (error.error || 'Error desconocido'));
+      }
+    } catch (err) {
+      alert('No se pudo conectar con el servidor. ¿Está corriendo python app_sqlite.py? (' + err.message + ')');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Guardar Orden de Servicio";
+    }
+  });
+</script>
+
+</body>
+</html>
